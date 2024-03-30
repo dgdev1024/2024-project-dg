@@ -7,6 +7,10 @@ workspace "project-dg"
   language "C++"
   cppdialect "C++20"
 
+  -- Extra Warnings; Treat Warnings as Errors
+  warnings "Extra"
+  flags { "FatalWarnings" }
+
   -- Build Configuration
   location "./generated"
   configurations { "debug", "release", "distribute" }
@@ -41,8 +45,8 @@ project "dg-engine"
   objdir "./build/obj/dg-engine/%{cfg.buildcfg}"
 
   -- Precompiled Header
-  pchheader "DGPch.hpp"
-  pchsource "./projects/dg-engine/src/DGPch.cpp"
+  pchheader "DG_Pch.hpp"
+  pchsource "./projects/dg-engine/src/DG_Pch.cpp"
 
   -- Include Directories
   includedirs {
@@ -64,11 +68,12 @@ project "dg-studio"
   objdir "./build/obj/dg-studio/%{cfg.buildcfg}"
 
   -- Precompiled Header
-  pchheader "DGStudioPch.hpp"
-  pchsource "./projects/dg-studio/src/DGStudioPch.cpp"
+  pchheader "DGStudio_Pch.hpp"
+  pchsource "./projects/dg-studio/src/DGStudio_Pch.cpp"
 
   -- Include Directories
   includedirs {
+    "./projects/dg-engine/include",
     "./projects/dg-studio/include"
   }
 

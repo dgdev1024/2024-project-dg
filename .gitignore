@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Build and Generated Folders
+build/
+generated/
+
+# Visual Studio Code Config Folder
+.vscode/
+
+# Dear ImGui Config File
+imgui.ini
