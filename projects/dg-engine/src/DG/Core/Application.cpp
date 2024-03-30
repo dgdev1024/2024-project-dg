@@ -1,5 +1,6 @@
 /** @file DG/Core/Application.cpp */
 
+#include <DG/Core/Logging.hpp>
 #include <DG/Core/Application.hpp>
 
 namespace dg
@@ -12,7 +13,7 @@ namespace dg
   ) :
     m_timestep  { 1.0f / spec.framerate }
   {
-    
+    Logging::initialize();
   }
 
   Application::~Application ()

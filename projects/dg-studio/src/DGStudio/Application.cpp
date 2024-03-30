@@ -10,7 +10,7 @@ namespace dgstudio
   ) :
     dg::Application { spec }
   {
-
+    DG_INFO("This is a {}.", "log");
   }
 
   Application::~Application ()
