@@ -4,5 +4,6 @@
 #define DG_PCH_HPP
 
 #include <DG/Common.hpp>
+#include <DG/Core/Logging.hpp>
 
 #endif

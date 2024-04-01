@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <DG_Pch.hpp>
+#include <DG/Common.hpp>
 
 namespace dg
 {

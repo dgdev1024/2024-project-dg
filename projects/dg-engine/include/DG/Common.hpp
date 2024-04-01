@@ -50,7 +50,11 @@ namespace dg
   using Bln = bool;
   using String = std::string;
   using StringView = std::string_view;
+  using Path = fs::path;
   using Char = char;
+  using Index = std::size_t;
+  using Size = std::size_t;
+  using Count = std::size_t;
   
   // Templated Typedefs
   template <typename T>                 using Collection = std::vector<T>;

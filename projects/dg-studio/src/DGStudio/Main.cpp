@@ -9,7 +9,7 @@ int main ()
   try {
     dg::ApplicationSpecification spec;
     dgstudio::Application app { spec };
-    app.start();
+    // app.start();
   } catch (std::exception& ex) {
     result = 1;
   }

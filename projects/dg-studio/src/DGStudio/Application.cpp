@@ -10,7 +10,11 @@ namespace dgstudio
   ) :
     dg::Application { spec }
   {
-    DG_INFO("This is a {}.", "log");
+    dg::FileLexer lexer { "./premake5.lua" };
+    while (lexer.hasMoreTokens() == true) {
+      auto token = lexer.getNextToken();
+      DG_INFO("Token: {} = '{}'", token.typeToString(), token.contents);
+    }
   }
 
   Application::~Application ()
