@@ -8,7 +8,7 @@ namespace dg
   /** Log Class ***************************************************************/
 
   Log::Log (
-    const std::string&  name
+    const String&       name
   ) :
     m_name  { name },
     m_cout  { std::cout },
@@ -22,7 +22,7 @@ namespace dg
 
   Log::Log (
     std::ostream&       stream,
-    const std::string&  name
+    const String&       name
   ) :
     m_name  { name },
     m_cout  { stream },
@@ -36,8 +36,8 @@ namespace dg
 
   /** Logging Static Class ****************************************************/
 
-  std::shared_ptr<Log> Logging::s_EngineLog = nullptr;
-  std::shared_ptr<Log> Logging::s_ClientLog = nullptr;
+  Shared<Log> Logging::s_EngineLog = nullptr;
+  Shared<Log> Logging::s_ClientLog = nullptr;
 
   void Logging::initialize ()
   {
@@ -45,12 +45,12 @@ namespace dg
     s_ClientLog = std::make_shared<Log>();
   }
 
-  std::shared_ptr<Log>& Logging::getEngineLog ()
+  Shared<Log>& Logging::getEngineLog ()
   {
     return s_EngineLog;
   }
 
-  std::shared_ptr<Log>& Logging::getClientLog ()
+  Shared<Log>& Logging::getClientLog ()
   {
     return s_ClientLog;
   }

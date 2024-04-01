@@ -3,6 +3,7 @@
 #pragma once
 
 #include <DG_Pch.hpp>
+#include <DG/Events/EventBus.hpp>
 
 namespace dg
 {
@@ -18,7 +19,7 @@ namespace dg
      * @brief The application's maximum framerate. This is used to determine its
      *        fixed timestep.
      */
-    float framerate = 60.0f;
+    F32 framerate = 60.0f;
 
   };
 
@@ -26,7 +27,7 @@ namespace dg
    * @brief The @a `Application` class is the base class for the DG Engine's
    *        client applications.
    */
-  class Application
+  class Application : public EventListener
   {
   protected:
 
@@ -43,18 +44,41 @@ namespace dg
   public:
     virtual ~Application ();
 
+  public:
+    static Application& get ();
+    static EventBus& getEventBus ();
+
+  public:
+
     /**
      * @brief Starts the client application's application loop.
      */
     void start ();
 
   protected:
+    void listenForEvent (Event& ev) override;
+    void fixedUpdate ();
+    void update ();
+
+  protected:
+
+    /**
+     * @brief A pointer to the singleton @a `Application` instance.
+     */
+    static Application* s_instance;
+
+    /**
+     * @brief A pointer to the client application's central event bus.
+     */
+    Unique<EventBus> m_eventBus = nullptr;
+
+    bool m_running = true;
 
     /**
      * @brief The application's fixed timestep. This determines how frequently
      *        the @a `fixedUpdate` method is called.
      */
-    float m_timestep = 0.0f;
+    F32 m_timestep = 0.0f;
 
   };
 

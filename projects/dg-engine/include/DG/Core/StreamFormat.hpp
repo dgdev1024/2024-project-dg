@@ -17,7 +17,7 @@ namespace dg
    */
   inline void streamFormat (
     std::ostream& output_stream,
-    const char* format
+    const Char*   format
   )
   {
     output_stream << format;
@@ -37,7 +37,7 @@ namespace dg
   template <typename FirstArg, typename... RemainingArgs>
   inline void streamFormat (
     std::ostream&     output_stream,
-    const char*       format,
+    const Char*       format,
     FirstArg          first_arg,
     RemainingArgs...  remaining_args
   )

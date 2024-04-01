@@ -21,7 +21,7 @@ namespace dg
      * @param   name  The name of the new @a `Log`. 
      */
     Log (
-      const std::string&  name = ""
+      const String&       name = ""
     );
 
     /**
@@ -34,7 +34,7 @@ namespace dg
      */
     Log (
       std::ostream&       stream,
-      const std::string&  name    = ""
+      const String&       name    = ""
     );
 
     /**
@@ -47,7 +47,7 @@ namespace dg
      */
     template <typename... Args>
     inline void info (
-      const char* format,
+      const Char* format,
       Args... args
     )
     {
@@ -66,7 +66,7 @@ namespace dg
      */
     template <typename... Args>
     inline void warning (
-      const char* format,
+      const Char* format,
       Args... args
     )
     {
@@ -85,7 +85,7 @@ namespace dg
      */
     template <typename... Args>
     inline void error (
-      const char* format,
+      const Char* format,
       Args... args
     )
     {
@@ -105,7 +105,7 @@ namespace dg
      */
     template <typename... Args>
     inline void critical (
-      const char* format,
+      const Char* format,
       Args... args
     )
     {
@@ -119,7 +119,7 @@ namespace dg
     /**
      * @brief The name, if any, of this @a `Log`.
      */
-    std::string m_name = "";
+    String m_name = "";
 
     /**
      * @brief A handle to the output stream used for standard output.
@@ -151,26 +151,26 @@ namespace dg
      * 
      * @return  A pointer to the engine's logger.
      */
-    static std::shared_ptr<Log>& getEngineLog ();
+    static Shared<Log>& getEngineLog ();
 
     /**
      * @brief   Retrieves the client's logger. 
      * 
      * @return  A pointer to the client's logger.
      */
-    static std::shared_ptr<Log>& getClientLog ();
+    static Shared<Log>& getClientLog ();
 
   private:
 
     /**
      * @brief   A pointer to the engine's logger.
      */
-    static std::shared_ptr<Log> s_EngineLog;
+    static Shared<Log> s_EngineLog;
 
     /**
      * @brief   A pointer to the client's logger.
      */
-    static std::shared_ptr<Log> s_ClientLog;
+    static Shared<Log> s_ClientLog;
 
   };
 
