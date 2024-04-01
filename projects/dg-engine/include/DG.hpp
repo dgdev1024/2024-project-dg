@@ -4,6 +4,7 @@
 
 // Core
 #include <DG/Core/Application.hpp>
+#include <DG/Core/Clock.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/StreamFormat.hpp>
 

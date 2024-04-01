@@ -1,5 +1,6 @@
 /** @file DG/Core/Application.cpp */
 
+#include <DG/Core/Clock.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/Application.hpp>
 
@@ -51,7 +52,23 @@ namespace dg
 
   void Application::start ()
   {
-    
+    Clock lagClock;
+    F32 lagTime = 0.0f, elapsedTime = 0.0f;
+
+    while (m_running == true)
+    {
+      lagTime = lagClock.restart();
+      elapsedTime += lagTime;
+
+      m_eventBus->poll();
+      while (lagTime >= m_timestep)
+      {
+        lagTime -= m_timestep;
+        fixedUpdate();
+      }
+
+      update();
+    }
   }
 
   /** Application Loop Methods ************************************************/
