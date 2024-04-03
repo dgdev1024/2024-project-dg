@@ -32,6 +32,12 @@ namespace fs = std::filesystem;
 namespace dg
 {
 
+  enum class StrongBool
+  {
+    False,
+    True
+  };
+
   // Integer Typedefs
   using I8  = std::int8_t;
   using I16 = std::int16_t;
@@ -47,7 +53,7 @@ namespace dg
   using F64 = double;
 
   // Other Typedefs
-  using Bln = bool;
+  using WeakBool = bool;
   using String = std::string;
   using StringView = std::string_view;
   using Path = fs::path;
@@ -58,8 +64,11 @@ namespace dg
   
   // Templated Typedefs
   template <typename T>                 using Collection = std::vector<T>;
+  template <typename T, typename U>     using Pair = std::pair<T, U>;
+  template <typename T>                 using Definition = Pair<String, T>;
   template <typename T, typename U>     using Map = std::unordered_map<T, U>;
   template <typename T>                 using Dictionary = Map<String, T>;
+  template <typename T>                 using InitList = std::initializer_list<T>;
   template <typename T, typename... Us> using Function = std::function<T(Us&&...)>;
   template <typename T, typename... Us> using LValueFunction = std::function<T(Us...)>;
   template <typename T>                 using Unique = std::unique_ptr<T>;

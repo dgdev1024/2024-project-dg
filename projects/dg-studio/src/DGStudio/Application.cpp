@@ -10,10 +10,11 @@ namespace dgstudio
   ) :
     dg::Application { spec }
   {
-    dg::FileLexer lexer { "./premake5.lua" };
-    while (lexer.hasMoreTokens() == true) {
-      auto token = lexer.getNextToken();
-      DG_INFO("Token: {} = '{}'", token.typeToString(), token.contents);
+    dg::Json json;
+    json.loadFromFile("assets/test.json");
+
+    if (json["something"].getType() == dg::JsonDataType::Null) {
+      DG_INFO("Something is not all there.");
     }
   }
 

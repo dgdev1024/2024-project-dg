@@ -7,6 +7,7 @@
 #include <DG/Core/Clock.hpp>
 #include <DG/Core/FileLexer.hpp>
 #include <DG/Core/FileToken.hpp>
+#include <DG/Core/Json.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/StreamFormat.hpp>
 

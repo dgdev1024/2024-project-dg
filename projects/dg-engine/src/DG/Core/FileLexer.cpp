@@ -5,9 +5,9 @@
 namespace dg
 {
 
-  FileLexer::FileLexer (const Path& filepath)
+  FileLexer::FileLexer (const Path& filepath, bool ignoreNewlines)
   {
-    loadFromFile(filepath);
+    loadFromFile(filepath, ignoreNewlines);
   }
 
   FileLexer::~FileLexer ()
@@ -16,7 +16,7 @@ namespace dg
     m_lexedPaths.clear();
   }
 
-  bool FileLexer::loadFromFile (const Path& filepath)
+  bool FileLexer::loadFromFile (const Path& filepath, bool ignoreNewlines)
   {
 
     if (fs::exists(filepath) == false) {
@@ -42,7 +42,7 @@ namespace dg
     m_writePointer = m_readPointer;
 
     while (true) {
-      int result = collectToken();
+      int result = collectToken(ignoreNewlines);
       if (result == -1) {
         DG_ENGINE_ERROR("FileLexer: Error parsing file '{}' at line #{}.", filepath, m_currentLine);
         m_file.close();
@@ -65,6 +65,15 @@ namespace dg
     if (m_readPointer > 0) { m_readPointer--; }
   }
 
+  const FileToken& FileLexer::peekToken (const Index offset) const
+  {
+    if (m_readPointer + offset >= m_tokens.size()) {
+      return m_tokens.back();
+    } else {
+      return m_tokens.at(m_readPointer + offset);
+    }
+  };
+
   void FileLexer::seek (Index offset, bool fromEnd) const
   {
     if (fromEnd == true) { m_readPointer = (m_tokens.size() - 1) - offset; }
@@ -79,6 +88,12 @@ namespace dg
   bool FileLexer::isEmpty () const
   {
     return m_tokens.empty();
+  }
+
+  void FileLexer::clear ()
+  {
+    m_tokens.clear();
+    m_readPointer = 0;
   }
 
   #define DG_EMPLACE(type, contents) \
@@ -141,7 +156,7 @@ namespace dg
     );
 
     m_file.unget();
-    DG_EMPLACE(FileTokenType::Number, contents);
+    DG_EMPLACE(isFloat == true ? FileTokenType::Number : FileTokenType::Integer, contents);
     return 1;
   }
 
@@ -178,14 +193,18 @@ namespace dg
     return 1;
   }
 
-  int FileLexer::collectToken ()
+  int FileLexer::collectToken (bool ignoreNewlines)
   {
     I32 character = m_file.get();
     while (std::isspace(character)) {
       if (character == '\n') {
-        DG_EMPLACE(FileTokenType::NewLine, "");
-        m_currentLine++;
-        return 1;
+        if (ignoreNewlines == false) {
+          DG_EMPLACE(FileTokenType::NewLine, "");
+          m_currentLine++;
+          return 1;
+        } else {
+          m_currentLine++;
+        }
       }
 
       character = m_file.get();

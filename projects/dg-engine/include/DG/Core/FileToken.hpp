@@ -14,6 +14,7 @@ namespace dg
     Identifier,
     Boolean,
     String,
+    Integer,
     Number,
     Period,
     Comma,
@@ -49,9 +50,9 @@ namespace dg
     Index sourceLine;
     FileTokenType type;
     String contents;
-    U64 integer;
+    I64 integer;
     F64 real;
-    bool boolean;
+    StrongBool boolean;
 
     FileToken (
       const String& sourceFile,
@@ -64,18 +65,22 @@ namespace dg
       type        { type },
       contents    { contents }
     {
-      if (type == FileTokenType::Number) {
-        integer = std::stoul(contents);
+      if (type == FileTokenType::Integer) {
+        integer = std::stol(contents);
+        real = static_cast<F64>(integer);
+        boolean = (integer != 0) ? StrongBool::True : StrongBool::False;
+      } else if (type == FileTokenType::Number) {
         real = std::stod(contents);
-        boolean = (integer != 0);
+        integer = static_cast<I64>(real);
+        boolean = (integer != 0) ? StrongBool::True : StrongBool::False;
       } else if (type == FileTokenType::Boolean) {
-        boolean = (contents == "true");
-        integer = boolean;
-        real = boolean;
+        boolean = (contents == "true") ? StrongBool::True : StrongBool::False;
+        integer = static_cast<bool>(boolean);
+        real = static_cast<bool>(boolean);
       } else {
         integer = 0;
         real = 0;
-        boolean = false;
+        boolean = StrongBool::False;
       }
     }
 
@@ -86,6 +91,7 @@ namespace dg
         case FileTokenType::Identifier: return "Identifier";
         case FileTokenType::Boolean: return "Boolean";
         case FileTokenType::String: return "String";
+        case FileTokenType::Integer: return "Integer";
         case FileTokenType::Number: return "Number";
         case FileTokenType::Period: return "Period";
         case FileTokenType::Comma: return "Comma";

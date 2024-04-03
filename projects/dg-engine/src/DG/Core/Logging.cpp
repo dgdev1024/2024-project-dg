@@ -41,8 +41,8 @@ namespace dg
 
   void Logging::initialize ()
   {
-    s_EngineLog = std::make_shared<Log>();
-    s_ClientLog = std::make_shared<Log>();
+    s_EngineLog = std::make_shared<Log>("ENGINE");
+    s_ClientLog = std::make_shared<Log>("CLIENT");
   }
 
   Shared<Log>& Logging::getEngineLog ()
