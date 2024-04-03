@@ -15,6 +15,13 @@ namespace dg
 
     T x, y;
 
+    static constexpr Count COMPONENT_COUNT = 2;
+
+    inline const T* getPointer () const
+    {
+      return &x;
+    }
+
     inline T getLength () const
     {
       return std::sqrt((x * x) + (y * y));

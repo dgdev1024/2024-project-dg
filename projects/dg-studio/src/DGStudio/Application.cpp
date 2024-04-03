@@ -10,12 +10,7 @@ namespace dgstudio
   ) :
     dg::Application { spec }
   {
-    dg::Json json;
-    json.loadFromFile("assets/test.json");
-
-    if (json["something"].getType() == dg::JsonDataType::Null) {
-      DG_INFO("Something is not all there.");
-    }
+    
   }
 
   Application::~Application ()
