@@ -16,3 +16,8 @@
 #include <DG/Events/EventBus.hpp>
 #include <DG/Events/EventListener.hpp>
 #include <DG/Events/EventEmitter.hpp>
+
+// Math
+#include <DG/Math/Vector2.hpp>
+#include <DG/Math/Vector3.hpp>
+#include <DG/Math/Vector4.hpp>
