@@ -27,3 +27,4 @@
 #include <DG/Math/Matrix4.hpp>
 #include <DG/Math/Quaternion4.hpp>
 #include <DG/Math/Transforms.hpp>
+#include <DG/Math/Projections.hpp>

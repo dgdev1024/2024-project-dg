@@ -10,14 +10,12 @@ namespace dgstudio
   ) :
     dg::Application { spec }
   {
-    dg::Vector4f position = { 0.0f, 2.0f, 0.0f, 1.0f };
-    DG_INFO("Original Position: {}", position);
-    
-    dg::Matrix4f transform = dg::rotate(dg::Matrix4f::IDENTITY, dg::radians(90.0f), 
-      { 0.0f, 0.0f, -1.0f });
+    // dg::Matrix4f matrix = dg::perspective(0.f, 800.f, 0.f, 600.f, 0.1f, 100.f);
 
-    position = transform * position;
-    DG_INFO("Rotated Position: {}", position);
+    // DG_INFO("{} {} {} {}", matrix.aa, matrix.ba, matrix.ca, matrix.da);
+    // DG_INFO("{} {} {} {}", matrix.ab, matrix.bb, matrix.cb, matrix.db);
+    // DG_INFO("{} {} {} {}", matrix.ac, matrix.bc, matrix.cc, matrix.dc);
+    // DG_INFO("{} {} {} {}", matrix.ad, matrix.bd, matrix.cd, matrix.dd);
   }
 
   Application::~Application ()
