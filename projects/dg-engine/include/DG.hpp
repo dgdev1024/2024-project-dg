@@ -18,6 +18,12 @@
 #include <DG/Events/EventEmitter.hpp>
 
 // Math
+#include <DG/Math/MathUtils.hpp>
 #include <DG/Math/Vector2.hpp>
 #include <DG/Math/Vector3.hpp>
 #include <DG/Math/Vector4.hpp>
+#include <DG/Math/Matrix2.hpp>
+#include <DG/Math/Matrix3.hpp>
+#include <DG/Math/Matrix4.hpp>
+#include <DG/Math/Quaternion4.hpp>
+#include <DG/Math/Transforms.hpp>

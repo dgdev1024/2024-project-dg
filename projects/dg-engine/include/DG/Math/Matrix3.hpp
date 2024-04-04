@@ -156,34 +156,34 @@ namespace dg
   inline Matrix3<T> operator* (const Matrix3<T>& lhs, T rhs)
   {
     return {
-      lhs.aa * rhs.aa,
-      lhs.ba * rhs.ba,
-      lhs.ca * rhs.ca,
+      lhs.aa * rhs,
+      lhs.ba * rhs,
+      lhs.ca * rhs,
 
-      lhs.ab * rhs.ab,
-      lhs.bb * rhs.bb,
-      lhs.cb * rhs.cb,
+      lhs.ab * rhs,
+      lhs.bb * rhs,
+      lhs.cb * rhs,
 
-      lhs.ac * rhs.ac,
-      lhs.bc * rhs.bc,
-      lhs.cc * rhs.cc
+      lhs.ac * rhs,
+      lhs.bc * rhs,
+      lhs.cc * rhs
     };
   }
 
   template <typename T>
   inline Matrix3<T>& operator*= (Matrix3<T>& lhs, T rhs)
   {
-    lhs.aa *= rhs.aa;
-    lhs.ba *= rhs.ba;
-    lhs.ca *= rhs.ca;
+    lhs.aa *= rhs;
+    lhs.ba *= rhs;
+    lhs.ca *= rhs;
 
-    lhs.ab *= rhs.ab;
-    lhs.bb *= rhs.bb;
-    lhs.cb *= rhs.cb;
+    lhs.ab *= rhs;
+    lhs.bb *= rhs;
+    lhs.cb *= rhs;
 
-    lhs.ac *= rhs.ac;
-    lhs.bc *= rhs.bc;
-    lhs.cc *= rhs.cc;
+    lhs.ac *= rhs;
+    lhs.bc *= rhs;
+    lhs.cc *= rhs;
 
     return lhs;
   }
@@ -193,18 +193,32 @@ namespace dg
   template <typename T>
   inline Matrix3<T> operator* (const Matrix3<T>& lhs, const Matrix3<T>& rhs)
   {
+    // return {
+    //   lhs.aa * rhs.aa + lhs.ab * rhs.ba + lhs.ac * rhs.ca,
+    //   lhs.aa * rhs.ab + lhs.ab * rhs.bb + lhs.ac * rhs.cb,
+    //   lhs.aa * rhs.ac + lhs.ab * rhs.bc + lhs.ac * rhs.cc,
+
+    //   lhs.ba * rhs.aa + lhs.bb * rhs.ba + lhs.bc * rhs.ca,
+    //   lhs.ba * rhs.ab + lhs.bb * rhs.bb + lhs.bc * rhs.cb,
+    //   lhs.ba * rhs.ac + lhs.bb * rhs.bc + lhs.bc * rhs.cc,
+
+    //   lhs.ca * rhs.aa + lhs.cb * rhs.ba + lhs.cc * rhs.ca,
+    //   lhs.ca * rhs.ab + lhs.cb * rhs.bb + lhs.cc * rhs.cb,
+    //   lhs.ca * rhs.ac + lhs.cb * rhs.bc + lhs.cc * rhs.cc
+    // };
+
     return {
-      lhs.aa * rhs.aa + lhs.ab * rhs.ba + lhs.ac * rhs.ca,
-      lhs.aa * rhs.ab + lhs.ab * rhs.bb + lhs.ac * rhs.cb,
-      lhs.aa * rhs.ac + lhs.ab * rhs.bc + lhs.ac * rhs.cc,
+      lhs.aa * rhs.aa + lhs.ba * rhs.ab + lhs.ca * rhs.ac,
+      lhs.aa * rhs.ba + lhs.ba * rhs.bb + lhs.ca * rhs.bc,
+      lhs.aa * rhs.ca + lhs.ba * rhs.cb + lhs.ca * rhs.cc,
 
-      lhs.ba * rhs.aa + lhs.bb * rhs.ba + lhs.bc * rhs.ca,
-      lhs.ba * rhs.ab + lhs.bb * rhs.bb + lhs.bc * rhs.cb,
-      lhs.ba * rhs.ac + lhs.bb * rhs.bc + lhs.bc * rhs.cc,
+      lhs.ab * rhs.aa + lhs.bb * rhs.ab + lhs.cb * rhs.ac,
+      lhs.ab * rhs.ba + lhs.bb * rhs.bb + lhs.cb * rhs.bc,
+      lhs.ab * rhs.ca + lhs.bb * rhs.cb + lhs.cb * rhs.cc,
 
-      lhs.ca * rhs.aa + lhs.cb * rhs.ba + lhs.cc * rhs.ca,
-      lhs.ca * rhs.ab + lhs.cb * rhs.bb + lhs.cc * rhs.cb,
-      lhs.ca * rhs.ac + lhs.cb * rhs.bc + lhs.cc * rhs.cc
+      lhs.ac * rhs.aa + lhs.bc * rhs.ab + lhs.cc * rhs.ac,
+      lhs.ac * rhs.ba + lhs.bc * rhs.bb + lhs.cc * rhs.bc,
+      lhs.ac * rhs.ca + lhs.bc * rhs.cb + lhs.cc * rhs.cc
     };
   }
 
@@ -212,9 +226,9 @@ namespace dg
   inline Vector3<T> operator* (const Matrix3<T>& lhs, const Vector3<T>& rhs)
   {
     return {
-      lhs.aa * rhs.x,
-      lhs.bb * rhs.y,
-      lhs.cc * rhs.z
+      lhs.aa * rhs.x + lhs.ba * rhs.y + lhs.ca * rhs.z,
+      lhs.ab * rhs.x + lhs.bb * rhs.y + lhs.cb * rhs.z,
+      lhs.ac * rhs.x + lhs.bc * rhs.y + lhs.cc * rhs.z
     };
   }
 

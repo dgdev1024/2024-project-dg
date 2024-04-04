@@ -154,8 +154,8 @@ namespace dg
   inline Vector2<T> operator* (const Matrix2<T>& lhs, const Vector2<T>& rhs)
   {
     return {
-      lhs.aa * rhs.x,
-      lhs.bb * rhs.y
+      lhs.aa * rhs.x + lhs.ba * rhs.y,
+      lhs.ab * rhs.x + lhs.bb * rhs.y
     };
   }
 

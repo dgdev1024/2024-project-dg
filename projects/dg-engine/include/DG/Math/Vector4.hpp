@@ -55,7 +55,12 @@ namespace dg
 
   };
 
-
+  template <typename T>
+  std::ostream& operator<< (std::ostream& stream, const Vector4<T>& vector)
+  {
+    stream << "[ " << vector.x << ", " << vector.y << ", " << vector.z << ", " << vector.w << " ]";
+    return stream;
+  }
 
   template <typename T>
   inline Vector4<T> operator- (const Vector4<T>& lhs)

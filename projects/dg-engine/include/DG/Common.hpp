@@ -24,6 +24,7 @@
 #include <cstdlib>
 #include <cstdint>
 #include <cmath>
+#include <cfloat>
 #include <ctime>
 #include <cassert>
 
