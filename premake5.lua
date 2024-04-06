@@ -1,15 +1,31 @@
 -- @file premake5.lua
 
+newoption {
+  trigger = "winapi",
+  value = "API",
+  description = "Choose an API to use for windowing and input",
+  allowed = {
+    { "glfw",     "GLFW" }
+  },
+  default = "glfw"
+}
+
+newoption {
+  trigger = "gfxapi",
+  value = "API",
+  description = "Choose an API for graphics and rendering",
+  allowed = {
+    { "glad",     "OpenGL via GLAD" }
+  },
+  default = "glad"
+}
+
 -- Workspace Settings
 workspace "project-dg"
 
   -- Language and Standard
   language "C++"
-  cppdialect "C++20"
-
-  -- Extra Warnings; Treat Warnings as Errors
-  warnings "Extra"
-  flags { "FatalWarnings" }
+  cppdialect "gnu++20"
 
   -- Build Configuration
   location "./generated"
@@ -35,6 +51,15 @@ workspace "project-dg"
   -- General Defines
 
 
+-- External Dependency Build Scripts
+if _OPTIONS["winapi"] == "glfw" then
+  include "./vendor/glfw"
+end
+
+if _OPTIONS["gfxapi"] == "glad" then
+  include "./vendor/glad"
+end
+
 -- Engine Library
 project "dg-engine"
 
@@ -50,13 +75,39 @@ project "dg-engine"
 
   -- Include Directories
   includedirs {
+    "./vendor/imgui",
+    "./vendor/imguizmo",
     "./projects/dg-engine/include"
   }
 
   -- Source Files
   files {
-    "./projects/dg-engine/src/**.cpp"
+    "./projects/dg-engine/src/**.cpp",
+    "./vendor/imgui/*.cpp",
+    "./vendor/imguizmo/*.cpp"
   }
+
+  if _OPTIONS["winapi"] == "glfw" then
+    includedirs { 
+      "./vendor/glfw/include",
+      "./vendor/imgui-glfw"
+    }
+
+    files {
+      "./vendor/imgui-glfw/*.cpp"
+    }
+  end
+
+  if _OPTIONS["gfxapi"] == "glad" then
+    includedirs { 
+      "./vendor/glad/include",
+      "./vendor/imgui-opengl"
+    }
+
+    files {
+      "./vendor/imgui-opengl/*.cpp"
+    }
+  end
 
 -- Studio Application
 project "dg-studio"
@@ -90,4 +141,16 @@ project "dg-studio"
   links {
     "dg-engine"
   }
+
+  if _OPTIONS["winapi"] == "glfw" then
+    includedirs { "./vendor/glfw/include" }
+    libdirs { "./build/bin/glfw/%{cfg.buildcfg}" }
+    links { "GLFW" }
+  end
+
+  if _OPTIONS["gfxapi"] == "glad" then
+    includedirs { "./vendor/glad/include" }
+    libdirs { "./build/bin/glad/%{cfg.buildcfg}" }
+    links { "GLAD" }
+  end
   
