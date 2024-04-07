@@ -10,11 +10,10 @@ namespace dg
   class EventBus
   {
   public:
-    EventBus (
-      EventListener& topLevelListener
-    ) :
-      m_topLevelListener { topLevelListener }
-    {}
+    EventBus (EventListener& topLevelListener);
+    ~EventBus ();
+
+    static EventBus& get ();
 
     inline static Unique<EventBus> make (
       EventListener& topLevelListener
@@ -43,6 +42,7 @@ namespace dg
     }
 
   private:
+    static EventBus* s_instance;
     EventListener& m_topLevelListener;
     Collection<Unique<Event>> m_events;
 

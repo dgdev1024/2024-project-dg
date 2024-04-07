@@ -3,6 +3,8 @@
 #pragma once
 
 #include <DG_Pch.hpp>
+#include <DG/Graphics/Renderer.hpp>
+#include <DG/Core/Window.hpp>
 #include <DG/Events/EventBus.hpp>
 
 namespace dg
@@ -14,6 +16,8 @@ namespace dg
    */
   struct ApplicationSpecification
   {
+
+    WindowSpecification windowSpec;
     
     /**
      * @brief The application's maximum framerate. This is used to determine its
@@ -47,6 +51,8 @@ namespace dg
   public:
     static Application& get ();
     static EventBus& getEventBus ();
+    static Window& getWindow ();
+    static Renderer& getRenderer ();
 
   public:
 
@@ -71,6 +77,10 @@ namespace dg
      * @brief A pointer to the client application's central event bus.
      */
     Unique<EventBus> m_eventBus = nullptr;
+
+    Unique<Window> m_window = nullptr;
+
+    Unique<Renderer> m_renderer = nullptr;
 
     bool m_running = true;
 

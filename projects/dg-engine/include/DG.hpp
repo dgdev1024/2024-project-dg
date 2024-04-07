@@ -28,3 +28,7 @@
 #include <DG/Math/Quaternion4.hpp>
 #include <DG/Math/Transforms.hpp>
 #include <DG/Math/Projections.hpp>
+
+// Graphics
+#include <DG/Graphics/Color.hpp>
+#include <DG/Graphics/RenderCommand.hpp>

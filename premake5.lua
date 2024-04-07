@@ -51,14 +51,20 @@ workspace "project-dg"
   -- General Defines
 
 
--- External Dependency Build Scripts
-if _OPTIONS["winapi"] == "glfw" then
-  include "./vendor/glfw"
-end
+  -- External Dependency Build Scripts
+  filter { "options:winapi=glfw" }
+    defines { "DG_USING_GLFW" }
+  filter { "options:gfxapi=glad" }
+    defines { "DG_USING_OPENGL", "DG_USING_GLAD" }
+  filter {}
 
-if _OPTIONS["gfxapi"] == "glad" then
-  include "./vendor/glad"
-end
+  if _OPTIONS["winapi"] == "glfw" then
+    include "./vendor/glfw"
+  end
+
+  if _OPTIONS["gfxapi"] == "glad" then
+    include "./vendor/glad"
+  end
 
 -- Engine Library
 project "dg-engine"
@@ -82,7 +88,9 @@ project "dg-engine"
 
   -- Source Files
   files {
-    "./projects/dg-engine/src/**.cpp",
+    "./projects/dg-engine/src/DG/Core/*.cpp",
+    "./projects/dg-engine/src/DG/Events/*.cpp",
+    "./projects/dg-engine/src/DG/Graphics/*.cpp",
     "./vendor/imgui/*.cpp",
     "./vendor/imguizmo/*.cpp"
   }
@@ -94,6 +102,7 @@ project "dg-engine"
     }
 
     files {
+      "./projects/dg-engine/src/DG/GLFW/*.cpp",
       "./vendor/imgui-glfw/*.cpp"
     }
   end
@@ -101,10 +110,11 @@ project "dg-engine"
   if _OPTIONS["gfxapi"] == "glad" then
     includedirs { 
       "./vendor/glad/include",
-      "./vendor/imgui-opengl"
+      "./vendor/imgui-opengl",
     }
 
     files {
+      "./projects/dg-engine/src/DG/OpenGL/*.cpp",
       "./vendor/imgui-opengl/*.cpp"
     }
   end
@@ -146,11 +156,15 @@ project "dg-studio"
     includedirs { "./vendor/glfw/include" }
     libdirs { "./build/bin/glfw/%{cfg.buildcfg}" }
     links { "GLFW" }
+
+    filter { "system:linux" }
+      links { "pthread", "dl", "X11", "Xrandr", "Xi" }
+    filter {}
   end
 
   if _OPTIONS["gfxapi"] == "glad" then
     includedirs { "./vendor/glad/include" }
     libdirs { "./build/bin/glad/%{cfg.buildcfg}" }
-    links { "GLAD" }
+    links { "GL", "GLAD" }
   end
   

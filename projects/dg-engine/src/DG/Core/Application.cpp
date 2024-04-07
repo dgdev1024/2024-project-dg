@@ -1,5 +1,6 @@
 /** @file DG/Core/Application.cpp */
 
+#include <DG/Graphics/RenderCommand.hpp>
 #include <DG/Core/Clock.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/Application.hpp>
@@ -26,10 +27,14 @@ namespace dg
 
     Logging::initialize();
     m_eventBus  = EventBus::make(*this);
+    m_window    = Window::make(spec.windowSpec);
+    m_renderer  = Renderer::make();
   }
 
   Application::~Application ()
   {
+    m_renderer.reset();
+    m_window.reset();
     m_eventBus.reset();
     s_instance = nullptr;
   }
@@ -46,6 +51,18 @@ namespace dg
   {
     assert(s_instance != nullptr);
     return *s_instance->m_eventBus;
+  }
+
+  Window& Application::getWindow ()
+  {
+    assert(s_instance != nullptr);
+    return *s_instance->m_window;
+  }
+
+  Renderer& Application::getRenderer ()
+  {
+    assert(s_instance != nullptr);
+    return *s_instance->m_renderer;
   }
 
   /** Start Application Loop **************************************************/
@@ -91,7 +108,8 @@ namespace dg
 
   void Application::update ()
   {
-
+    RenderCommand::clear();
+    m_window->update();
   }
 
 }
