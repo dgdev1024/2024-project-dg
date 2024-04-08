@@ -6,6 +6,7 @@
 #include <DG/Graphics/Renderer.hpp>
 #include <DG/Core/Gui.hpp>
 #include <DG/Core/Window.hpp>
+#include <DG/Core/LayerStack.hpp>
 #include <DG/Events/EventBus.hpp>
 
 namespace dg
@@ -56,6 +57,7 @@ namespace dg
     static EventBus& getEventBus ();
     static Window& getWindow ();
     static Renderer& getRenderer ();
+    static LayerStack& getLayerStack ();
 
   public:
 
@@ -84,6 +86,8 @@ namespace dg
     Unique<Window> m_window = nullptr;
 
     Unique<Renderer> m_renderer = nullptr;
+
+    Unique<LayerStack> m_layerStack = nullptr;
 
     bool m_running = true;
 

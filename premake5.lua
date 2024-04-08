@@ -134,6 +134,8 @@ project "dg-studio"
 
   -- Include Directories
   includedirs {
+    "./vendor/imgui",
+    "./vendor/imguizmo",
     "./projects/dg-engine/include",
     "./projects/dg-studio/include"
   }

@@ -11,11 +11,14 @@ namespace dgstudio
     dg::Application { spec }
   {
     dg::RenderCommand::setClearColor(dg::Color::BLUE);
+
+    m_editorLayer = std::make_unique<EditorLayer>();
+    getLayerStack().attachLayer(*m_editorLayer);
   }
 
   Application::~Application ()
   {
-    
+    getLayerStack().detachLayer(*m_editorLayer);
   }
 
 }

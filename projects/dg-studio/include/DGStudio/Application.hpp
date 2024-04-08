@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <DGStudio_Pch.hpp>
+#include <DGStudio/EditorLayer.hpp>
 
 namespace dgstudio
 {
@@ -16,6 +16,9 @@ namespace dgstudio
     );
     ~Application ();
     
+  private:
+    dg::Unique<EditorLayer> m_editorLayer = nullptr;
+
   };
 
 }

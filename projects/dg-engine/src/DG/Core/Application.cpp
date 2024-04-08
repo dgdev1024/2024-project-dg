@@ -27,9 +27,10 @@ namespace dg
     }
 
     Logging::initialize();
-    m_eventBus  = EventBus::make(*this);
-    m_window    = Window::make(spec.windowSpec);
-    m_renderer  = Renderer::make();
+    m_eventBus    = EventBus::make(*this);
+    m_window      = Window::make(spec.windowSpec);
+    m_renderer    = Renderer::make();
+    m_layerStack  = std::make_unique<LayerStack>();
     Input::initialize();
 
     if (spec.guiSpec.enabled == true) {
@@ -41,6 +42,7 @@ namespace dg
   {
     Gui::shutdown();
     Input::shutdown();
+    m_layerStack.reset();
     m_renderer.reset();
     m_window.reset();
     m_eventBus.reset();
@@ -73,6 +75,12 @@ namespace dg
     return *s_instance->m_renderer;
   }
 
+  LayerStack& Application::getLayerStack ()
+  {
+    assert(s_instance != nullptr);
+    return *s_instance->m_layerStack;
+  }
+
   /** Start Application Loop **************************************************/
 
   void Application::start ()
@@ -101,6 +109,11 @@ namespace dg
   void Application::listenForEvent (Event& ev)
   {
 
+    for (auto it = m_layerStack->rbegin(); it != m_layerStack->rend(); ++it)
+    {
+      (*it)->listenForEvent(ev);
+    }
+
     onEvent<WindowCloseEvent>(ev, [&] (WindowCloseEvent&)
     {
       m_running = false;
@@ -111,14 +124,23 @@ namespace dg
 
   void Application::fixedUpdate ()
   {
-    
+    for (auto layer : *m_layerStack) {
+      layer->fixedUpdate(m_timestep);
+    }
   }
 
   void Application::update ()
   {
     RenderCommand::clear();
 
+    for (auto layer : *m_layerStack) {
+      layer->update();
+    }
+
     if (Gui::begin() == true) {
+      for (auto layer : *m_layerStack) {
+        layer->guiUpdate();
+      }
 
       Gui::end();
     }

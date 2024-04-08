@@ -9,6 +9,7 @@
 #include <DG/Core/FileToken.hpp>
 #include <DG/Core/Input.hpp>
 #include <DG/Core/Json.hpp>
+#include <DG/Core/LayerStack.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/StreamFormat.hpp>
 
