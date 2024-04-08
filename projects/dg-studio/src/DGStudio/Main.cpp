@@ -8,6 +8,8 @@ int main ()
 
   try {
     dg::ApplicationSpecification spec;
+    spec.guiSpec.enabled = true;
+    spec.guiSpec.docking = true;
     dgstudio::Application app { spec };
     app.start();
   } catch (std::exception& ex) {

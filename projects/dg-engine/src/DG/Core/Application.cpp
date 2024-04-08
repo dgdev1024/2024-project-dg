@@ -31,10 +31,15 @@ namespace dg
     m_window    = Window::make(spec.windowSpec);
     m_renderer  = Renderer::make();
     Input::initialize();
+
+    if (spec.guiSpec.enabled == true) {
+      Gui::initialize(spec.guiSpec);
+    }
   }
 
   Application::~Application ()
   {
+    Gui::shutdown();
     Input::shutdown();
     m_renderer.reset();
     m_window.reset();
@@ -112,6 +117,12 @@ namespace dg
   void Application::update ()
   {
     RenderCommand::clear();
+
+    if (Gui::begin() == true) {
+
+      Gui::end();
+    }
+
     m_window->update();
   }
 

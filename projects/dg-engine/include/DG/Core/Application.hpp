@@ -4,6 +4,7 @@
 
 #include <DG_Pch.hpp>
 #include <DG/Graphics/Renderer.hpp>
+#include <DG/Core/Gui.hpp>
 #include <DG/Core/Window.hpp>
 #include <DG/Events/EventBus.hpp>
 
@@ -18,6 +19,8 @@ namespace dg
   {
 
     WindowSpecification windowSpec;
+
+    GuiContextSpecification guiSpec;
     
     /**
      * @brief The application's maximum framerate. This is used to determine its
