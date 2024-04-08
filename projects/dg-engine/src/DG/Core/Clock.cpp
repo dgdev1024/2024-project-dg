@@ -14,7 +14,7 @@ namespace dg
   F32 Clock::getElapsed () const
   {
     auto now = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<F32> elapsed = m_startPoint - now;
+    std::chrono::duration<F32> elapsed = now - m_startPoint;
     return elapsed.count();
   }
 

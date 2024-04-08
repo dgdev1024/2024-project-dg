@@ -10,13 +10,27 @@ namespace dg
   class KeyEvent : public Event
   {
   protected:
-    KeyEvent (U32 keycode) : m_keycode { keycode } {}
+    KeyEvent (I32 keycode, bool ctrl, bool alt, bool shift, bool super) : 
+      m_keycode { keycode },
+      m_ctrl { ctrl },
+      m_alt { alt },
+      m_shift { shift },
+      m_super { super }
+    {}
 
   public:
-    inline U32 getKeycode () const { return m_keycode; }
+    inline I32 getKeycode () const { return m_keycode; }
+    inline bool isCtrlDown () const { return m_ctrl; }
+    inline bool isAltDown () const { return m_alt; }
+    inline bool isShiftDown () const { return m_shift; }
+    inline bool isSuperDown () const { return m_super; }
 
   protected:
-    U32 m_keycode = 0;
+    I32 m_keycode = 0;
+    bool m_ctrl = false;
+    bool m_alt = false;
+    bool m_shift = false;
+    bool m_super = false;
 
   };
 
@@ -25,7 +39,8 @@ namespace dg
     DG_EVENT_IMPL(EventType::KeyDown)
 
   public:
-    KeyDownEvent (U32 keycode) : KeyEvent { keycode } {}
+    KeyDownEvent (I32 keycode, bool ctrl, bool alt, bool shift, bool super) : 
+      KeyEvent { keycode, ctrl, alt, shift, super } {}
 
   };
 
@@ -34,7 +49,8 @@ namespace dg
     DG_EVENT_IMPL(EventType::KeyUp)
 
   public:
-    KeyUpEvent (U32 keycode) : KeyEvent { keycode } {}
+    KeyUpEvent (I32 keycode, bool ctrl, bool alt, bool shift, bool super) : 
+      KeyEvent { keycode, ctrl, alt, shift, super } {}
     
   };
 

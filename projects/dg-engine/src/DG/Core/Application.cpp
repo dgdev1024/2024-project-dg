@@ -1,6 +1,7 @@
 /** @file DG/Core/Application.cpp */
 
 #include <DG/Graphics/RenderCommand.hpp>
+#include <DG/Core/Input.hpp>
 #include <DG/Core/Clock.hpp>
 #include <DG/Core/Logging.hpp>
 #include <DG/Core/Application.hpp>
@@ -29,10 +30,12 @@ namespace dg
     m_eventBus  = EventBus::make(*this);
     m_window    = Window::make(spec.windowSpec);
     m_renderer  = Renderer::make();
+    Input::initialize();
   }
 
   Application::~Application ()
   {
+    Input::shutdown();
     m_renderer.reset();
     m_window.reset();
     m_eventBus.reset();
@@ -74,8 +77,8 @@ namespace dg
 
     while (m_running == true)
     {
-      lagTime = lagClock.restart();
-      elapsedTime += lagTime;
+      elapsedTime = lagClock.restart();
+      lagTime += elapsedTime;
 
       m_eventBus->poll();
       while (lagTime >= m_timestep)
@@ -103,7 +106,7 @@ namespace dg
 
   void Application::fixedUpdate ()
   {
-
+    
   }
 
   void Application::update ()

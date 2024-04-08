@@ -21,6 +21,8 @@ namespace dg
     MouseButtonDown,
     MouseButtonUp,
     MouseMotion,
+    MouseEnter,
+    MouseLeave,
     Scroll
   };
 

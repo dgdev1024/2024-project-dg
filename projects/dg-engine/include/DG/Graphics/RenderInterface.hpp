@@ -9,8 +9,10 @@ namespace dg
 
   class RenderInterface
   {
-  public:
+  protected:
     RenderInterface () = default;
+    
+  public:
     virtual ~RenderInterface () = default;
 
   public:

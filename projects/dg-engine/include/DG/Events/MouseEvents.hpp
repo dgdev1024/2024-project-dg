@@ -11,13 +11,27 @@ namespace dg
   class MouseButtonEvent : public Event
   {
   protected:
-    MouseButtonEvent (U32 buttonCode) : m_buttonCode { buttonCode } {}
+    MouseButtonEvent (U32 buttonCode, bool ctrl, bool alt, bool shift, bool super) : 
+      m_buttonCode { buttonCode },
+      m_ctrl { ctrl },
+      m_alt { alt },
+      m_shift { shift },
+      m_super { super }
+    {}
 
   public:
     inline U32 getButtonCode () const { return m_buttonCode; }
+    inline bool isCtrlDown () const { return m_ctrl; }
+    inline bool isAltDown () const { return m_alt; }
+    inline bool isShiftDown () const { return m_shift; }
+    inline bool isSuperDown () const { return m_super; }
 
   protected:
     U32 m_buttonCode = 0;
+    bool m_ctrl = false;
+    bool m_alt = false;
+    bool m_shift = false;
+    bool m_super = false;
 
   };
 
@@ -26,7 +40,8 @@ namespace dg
     DG_EVENT_IMPL(EventType::MouseButtonDown)
 
   public:
-    MouseButtonDownEvent (U32 buttonCode) : MouseButtonEvent { buttonCode } {}
+    MouseButtonDownEvent (U32 buttonCode, bool ctrl, bool alt, bool shift, bool super) : 
+      MouseButtonEvent { buttonCode, ctrl, alt, shift, super } {}
 
   };
 
@@ -35,7 +50,8 @@ namespace dg
     DG_EVENT_IMPL(EventType::MouseButtonUp)
 
   public:
-    MouseButtonUpEvent (U32 buttonCode) : MouseButtonEvent { buttonCode } {}
+    MouseButtonUpEvent (U32 buttonCode, bool ctrl, bool alt, bool shift, bool super) : 
+      MouseButtonEvent { buttonCode, ctrl, alt, shift, super } {}
 
   };
 
@@ -55,6 +71,24 @@ namespace dg
     Vector2f m_position;
 
   };
+
+  class MouseEnterEvent : public Event
+  {
+    DG_EVENT_IMPL(EventType::MouseEnter)
+
+  public:
+    MouseEnterEvent () {}
+
+  };  
+
+  class MouseLeaveEvent : public Event
+  {
+    DG_EVENT_IMPL(EventType::MouseLeave)
+
+  public:
+    MouseLeaveEvent () {}
+
+  };  
 
   class ScrollEvent : public Event
   {
