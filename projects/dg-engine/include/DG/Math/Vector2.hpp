@@ -158,5 +158,7 @@ namespace dg
   using Vector2i = Vector2<I32>;
   using Vector2u = Vector2<U32>;
   using Vector2f = Vector2<F32>;
+  using Vector2d = Vector2<F64>;
+  using Vector2b = Vector2<bool>;
 
 }

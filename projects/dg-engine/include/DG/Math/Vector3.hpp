@@ -173,5 +173,7 @@ namespace dg
   using Vector3i = Vector3<I32>;
   using Vector3u = Vector3<U32>;
   using Vector3f = Vector3<F32>;
+  using Vector3d = Vector3<F64>;
+  using Vector3b = Vector3<bool>;
 
 }

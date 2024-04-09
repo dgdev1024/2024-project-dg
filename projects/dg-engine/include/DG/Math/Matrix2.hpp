@@ -162,5 +162,6 @@ namespace dg
 
 
   using Matrix2f = Matrix2<F32>;
+  using Matrix2d = Matrix2<F64>;
 
 }

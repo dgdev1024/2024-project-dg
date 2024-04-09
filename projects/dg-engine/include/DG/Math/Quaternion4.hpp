@@ -86,5 +86,6 @@ namespace dg
   };
 
   using Quaternion4f = Quaternion4<F32>;
+  using Quaternion4d = Quaternion4<F64>;
 
 }

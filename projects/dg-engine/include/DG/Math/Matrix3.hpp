@@ -235,5 +235,6 @@ namespace dg
 
 
   using Matrix3f = Matrix3<F32>;
+  using Matrix3d = Matrix3<F64>;
 
 }

@@ -5,6 +5,7 @@
 // Core
 #include <DG/Core/Application.hpp>
 #include <DG/Core/Clock.hpp>
+#include <DG/Core/FileIo.hpp>
 #include <DG/Core/FileLexer.hpp>
 #include <DG/Core/FileToken.hpp>
 #include <DG/Core/Input.hpp>
@@ -35,5 +36,6 @@
 #include <DG/Graphics/Color.hpp>
 #include <DG/Graphics/GraphicsBuffers.hpp>
 #include <DG/Graphics/RenderCommand.hpp>
+#include <DG/Graphics/Shader.hpp>
 #include <DG/Graphics/VertexArray.hpp>
 #include <DG/Graphics/VertexLayout.hpp>

@@ -185,5 +185,7 @@ namespace dg
   using Vector4i = Vector4<I32>;
   using Vector4u = Vector4<U32>;
   using Vector4f = Vector4<F32>;
+  using Vector4d = Vector4<F64>;
+  using Vector4b = Vector4<bool>;
 
 }
