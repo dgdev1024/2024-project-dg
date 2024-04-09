@@ -37,4 +37,9 @@ namespace dg
     s_interface->setViewport(width, height);
   }
 
+  void RenderCommand::drawIndexed (const Shared<VertexArray>& vao, Count indexCount)
+  {
+    s_interface->drawIndexed(vao, indexCount);
+  }
+
 }

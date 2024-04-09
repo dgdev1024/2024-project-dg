@@ -21,6 +21,7 @@ namespace dg::OpenGL
     void setClearColor (const Vector4f& color) override;
     void setViewport (I32 x, I32 y, I32 width, I32 height) override;
     void setViewport (I32 width, I32 height) override;
+    void drawIndexed (const Shared<VertexArray>& vao, Count indexCount = 0) override;
 
   };
 

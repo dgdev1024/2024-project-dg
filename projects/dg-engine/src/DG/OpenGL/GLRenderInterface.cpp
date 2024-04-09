@@ -57,4 +57,21 @@ namespace dg::OpenGL
     glViewport(0, 0, width, height);
   }
 
+  void RenderInterfaceImpl::drawIndexed (const Shared<VertexArray>& vao, Count indexCount)
+  {
+    if (vao == nullptr) {
+      DG_ENGINE_THROW(std::invalid_argument,
+        "Attempt to render null GL vertex array object!");
+    }
+    
+    const auto& ibo = vao->getIndexBuffer();
+    if (ibo == nullptr) {
+      DG_ENGINE_THROW(std::invalid_argument,
+        "Attempt to render GL vertex array with no index buffer bound!");
+    }
+
+    vao->bind();
+    glDrawElements(GL_TRIANGLES, ibo->getIndexCount(), GL_UNSIGNED_INT, 0);
+  }
+
 }
