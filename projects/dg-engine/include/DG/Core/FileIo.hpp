@@ -14,6 +14,7 @@ namespace dg
   public:
     static Path getAbsolute (const Path& path);
     static bool loadTextFile (const Path& path, const LineFunction& lineFunction);
+    static bool loadBinaryFile (const Path& path, Collection<U8>& contents);
 
   };
 

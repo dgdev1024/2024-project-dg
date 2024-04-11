@@ -21,6 +21,7 @@ namespace dgstudio
     dg::Shared<dg::VertexBuffer>  m_vbo = nullptr;
     dg::Shared<dg::IndexBuffer>   m_ibo = nullptr;
     dg::Shared<dg::Shader>        m_shader = nullptr;
+    dg::Shared<dg::Texture>       m_texture = nullptr;
 
   };
 

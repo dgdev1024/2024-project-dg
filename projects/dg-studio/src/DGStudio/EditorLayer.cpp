@@ -5,13 +5,19 @@
 namespace dgstudio
 {
 
+  struct Vertex
+  {
+    dg::Vector3f position;
+    dg::Vector2f texCoords;
+  };
+
   void EditorLayer::onAttach ()
   {
-    dg::Collection<dg::Vector3f> vertices = {
-      {  0.5f,  0.5f, 0.0f },
-      {  0.5f, -0.5f, 0.0f },
-      { -0.5f, -0.5f, 0.0f },
-      { -0.5f,  0.5f, 0.0f }
+    dg::Collection<Vertex> vertices = {
+      { {  0.5f,  0.5f, 0.0f }, { 1.0f, 1.0f } },
+      { {  0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f } },
+      { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } },
+      { { -0.5f,  0.5f, 0.0f }, { 0.0f, 1.0f } }
     };
 
     dg::Collection<dg::U32> indices = {
@@ -19,22 +25,23 @@ namespace dgstudio
     };
 
     m_vao = dg::VertexArray::make();
-    m_vbo = dg::VertexBuffer::makeFrom<dg::Vector3f>(vertices);
+    m_vbo = dg::VertexBuffer::makeFrom<Vertex>(vertices);
     m_ibo = dg::IndexBuffer::make(indices);
-    m_shader = dg::Shader::make("assets/basic.glsl");
+    m_shader = dg::Shader::make("assets/basic_texture.glsl");
+    m_texture = dg::Texture::make("assets/wall.jpg");
     m_vbo->setLayout({
-      { "in_Position", dg::VertexAttributeType::Float3 }
+      { "in_Position", dg::VertexAttributeType::Float3 },
+      { "in_TexCoords", dg::VertexAttributeType::Float2 }
     });
     m_vao->addVertexBuffer(m_vbo);
     m_vao->setIndexBuffer(m_ibo);
 
-    if (m_shader->setVector4f("uni_FragColor", { 0.0f, 1.0f, 1.0f, 1.0f }) == false) {
-      DG_THROW(std::runtime_error, "Uniform not found!");
-    }
+    m_shader->setInteger("uni_Texture", 0);
   }
 
   void EditorLayer::onDetach ()
   {
+    m_texture.reset();
     m_shader.reset();
     m_vao.reset();
     m_vbo.reset();

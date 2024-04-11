@@ -25,7 +25,10 @@ workspace "project-dg"
 
   -- Language and Standard
   language "C++"
-  cppdialect "gnu++20"
+  cppdialect "C++20"
+  filter { "toolset:gcc" }
+    cppdialect "gnu++20"
+  filter {}
 
   -- Build Configuration
   location "./generated"
@@ -83,6 +86,8 @@ project "dg-engine"
   includedirs {
     "./vendor/imgui",
     "./vendor/imguizmo",
+    "./vendor/stb/include",
+    "./projects/dg-bpp/include",
     "./projects/dg-engine/include"
   }
 
@@ -136,6 +141,7 @@ project "dg-studio"
   includedirs {
     "./vendor/imgui",
     "./vendor/imguizmo",
+    "./projects/dg-bpp/include",
     "./projects/dg-engine/include",
     "./projects/dg-studio/include"
   }
@@ -147,6 +153,7 @@ project "dg-studio"
 
   -- Link Libraries
   libdirs {
+    "./build/bin/dg-bpp/{%cfg.buildcfg}",
     "./build/bin/dg-engine/%{cfg.buildcfg}"
   }
 

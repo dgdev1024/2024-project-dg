@@ -47,4 +47,33 @@ namespace dg
     return true;    
   }
 
+  bool FileIo::loadBinaryFile (const Path& path, Collection<U8>& contents)
+  {
+    if (path.empty()) {
+      DG_ENGINE_ERROR("No text filename specified for loading.");
+      return false;
+    }
+
+    if (fs::exists(path) == false) {
+      DG_ENGINE_ERROR("Binary file '{}' not found.", path);
+      return false;
+    }
+
+    std::fstream file { path, std::ios::in | std::ios::binary };
+    if (file.is_open() == false) {
+      DG_ENGINE_ERROR("Could not open binary file '{}' for reading.", path);
+      return false;
+    }
+
+    file.seekg(0, file.end);
+    auto size = file.tellg();
+    file.seekg(0, file.beg);
+
+    contents.resize(size);
+    file.read(reinterpret_cast<char*>(contents.data()), contents.size());
+
+    file.close();
+    return true;
+  }
+
 }

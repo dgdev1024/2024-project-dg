@@ -37,5 +37,6 @@
 #include <DG/Graphics/GraphicsBuffers.hpp>
 #include <DG/Graphics/RenderCommand.hpp>
 #include <DG/Graphics/Shader.hpp>
+#include <DG/Graphics/Texture.hpp>
 #include <DG/Graphics/VertexArray.hpp>
 #include <DG/Graphics/VertexLayout.hpp>
