@@ -113,6 +113,11 @@ namespace dg::OpenGL
       data);
   }
 
+  void* TextureImpl::getPointer () const
+  {
+    return (void*) (intptr_t) m_handle;
+  }
+
   bool TextureImpl::initializeTexture ()
   {
     if (resolveTextureFormat(m_colorChannelCount, m_internalFormat, m_pixelFormat) == false) {

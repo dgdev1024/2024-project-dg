@@ -47,6 +47,7 @@ namespace dg
     virtual void bind (const Index slot = 0) const = 0;
     virtual void unbind (const Index slot = 0) const = 0;
     virtual void upload (const void*, const Size) = 0;
+    virtual void* getPointer () const = 0;
 
   public:
     bool loadFromFile (const Path& path);

@@ -22,6 +22,7 @@ namespace dg::OpenGL
     void bind (const Index slot = 0) const override;
     void unbind (const Index slot = 0) const override;
     void upload (const void* data, const Size size) override;
+    void* getPointer () const override;
 
   private:
     bool initializeTexture () override;

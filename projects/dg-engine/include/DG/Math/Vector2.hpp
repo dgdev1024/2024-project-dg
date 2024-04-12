@@ -43,8 +43,32 @@ namespace dg
       return (nlhs.x * nrhs.x) + (nlhs.y * nrhs.y);
     }
 
+    template <typename U>
+    inline Vector2<U> cast () const
+    {
+      return Vector2<U> { static_cast<U>(x), static_cast<U>(y) };
+    }
+
   };
 
+
+  template <typename T>
+  bool operator== (const Vector2<T>& lhs, const Vector2<T>& rhs)
+  {
+    return (
+      lhs.x == rhs.x &&
+      lhs.y == rhs.y
+    );
+  }
+
+  template <typename T>
+  bool operator!= (const Vector2<T>& lhs, const Vector2<T>& rhs)
+  {
+    return (
+      lhs.x != rhs.x ||
+      lhs.y != rhs.y
+    );
+  }
 
 
   template <typename T>

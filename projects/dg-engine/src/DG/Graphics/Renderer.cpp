@@ -73,6 +73,22 @@ namespace dg
     return std::make_unique<Renderer>();
   }
 
+  void Renderer::useFrameBuffer2D (const Shared<FrameBuffer>& framebuffer)
+  {
+    if (m_renderData2D.sceneStarted == true) {
+      flushScene2D(true);
+    }
+
+    if (m_renderData2D.framebuffer != nullptr) {
+      m_renderData2D.framebuffer->unbind();
+    }
+
+    m_renderData2D.framebuffer = framebuffer;
+    if (m_renderData2D.framebuffer != nullptr) {
+      m_renderData2D.framebuffer->bind();
+    }
+  }
+
   void Renderer::useQuadShader2D (const Shared<Shader>& shader)
   {
     if (shader == nullptr || shader->isValid() == false) {

@@ -5,6 +5,7 @@
 #include <DG/Math/Matrix4.hpp>
 #include <DG/Graphics/VertexArray.hpp>
 #include <DG/Graphics/Shader.hpp>
+#include <DG/Graphics/FrameBuffer.hpp>
 #include <DG/Graphics/Texture.hpp>
 #include <DG/Graphics/RenderCommand.hpp>
 
@@ -40,6 +41,7 @@ namespace dg
 
     Shared<Texture> blankTexture = nullptr;
     Shared<Shader> quadShader = nullptr;
+    Shared<FrameBuffer> framebuffer = nullptr;
     Shared<VertexArray> quadVertexArray = nullptr;
     Shared<VertexBuffer> quadVertexBuffer = nullptr;
 
@@ -67,6 +69,7 @@ namespace dg
     static Unique<Renderer> make ();
 
   public:
+    void useFrameBuffer2D (const Shared<FrameBuffer>& framebuffer);
     void useQuadShader2D (const Shared<Shader>& shader);
 
   public:
@@ -83,6 +86,11 @@ namespace dg
   private:
     void submitQuadVertex2D (const QuadVertex2D& vertex);
     Index slotTexture2D (const Shared<Texture>& texture);
+
+  public:
+    inline Count getVertexCount2D () const { return m_renderData2D.sceneVertexCount; }
+    inline Count getIndexCount2D () const { return m_renderData2D.sceneIndexCount; }
+    inline Count getBatchCount2D () const { return m_renderData2D.sceneBatchCount; }
 
   private:
     RenderData2D m_renderData2D;
