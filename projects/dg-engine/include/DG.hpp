@@ -36,6 +36,7 @@
 #include <DG/Graphics/Color.hpp>
 #include <DG/Graphics/GraphicsBuffers.hpp>
 #include <DG/Graphics/RenderCommand.hpp>
+#include <DG/Graphics/Renderer.hpp>
 #include <DG/Graphics/Shader.hpp>
 #include <DG/Graphics/Texture.hpp>
 #include <DG/Graphics/VertexArray.hpp>

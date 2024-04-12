@@ -320,8 +320,6 @@ namespace dg
     };
   }
 
-
-
   using Matrix4f = Matrix4<F32>;
   using Matrix4d = Matrix4<F64>;
 

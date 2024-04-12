@@ -21,6 +21,7 @@ namespace dg::OpenGL
   public:
     void bind () const override;
     void unbind () const override;
+    void upload (const void* data, const Size size) override;
 
   private:
     U32 m_handle = 0;

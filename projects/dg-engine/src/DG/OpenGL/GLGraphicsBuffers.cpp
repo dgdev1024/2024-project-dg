@@ -78,6 +78,22 @@ namespace dg::OpenGL
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
+  void VertexBufferImpl::upload (const void* data, const Size size)
+  {
+    if (m_dynamic == false) {
+      DG_ENGINE_THROW(std::runtime_error,
+        "Attempt to upload dynamic vertex data to non-dynamic GL vertex buffer!");
+    }
+
+    if (data == nullptr || size == 0) {
+      DG_ENGINE_THROW(std::invalid_argument,
+        "Attempt to upload null data or zero size to GL vertex buffer!");
+    }
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_handle);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+  }
+
 
 
   IndexBufferImpl::IndexBufferImpl (const Collection<U32>& indices, bool dynamic) :

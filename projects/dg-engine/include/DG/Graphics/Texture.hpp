@@ -40,11 +40,13 @@ namespace dg
     virtual ~Texture () = default;
 
   public:
+    static Shared<Texture> make (const TextureSpecification& spec = {});
     static Shared<Texture> make (const Path& path);
 
   public:
     virtual void bind (const Index slot = 0) const = 0;
     virtual void unbind (const Index slot = 0) const = 0;
+    virtual void upload (const void*, const Size) = 0;
 
   public:
     bool loadFromFile (const Path& path);

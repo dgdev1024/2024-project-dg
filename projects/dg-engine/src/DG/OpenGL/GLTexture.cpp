@@ -5,6 +5,11 @@
 namespace dg
 {
 
+  Shared<Texture> Texture::make (const TextureSpecification& spec)
+  {
+    return std::make_shared<OpenGL::TextureImpl>(spec);
+  }
+
   Shared<Texture> Texture::make (const Path& path)
   {
     return std::make_shared<OpenGL::TextureImpl>(path);
@@ -87,6 +92,25 @@ namespace dg::OpenGL
 
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, 0);
+  }
+
+  void TextureImpl::upload (const void* data, const Size size)
+  {
+    if (data == nullptr || size == 0) {
+      DG_ENGINE_THROW(std::invalid_argument,
+        "Attempt to upload null data or zero size to GL texture!");
+    }
+
+    Size expectedSize = (m_size.x * m_size.y * m_colorChannelCount);
+    if (size != expectedSize) {
+      DG_ENGINE_THROW(std::invalid_argument,
+        "Attempt to upload data of mismatched size to GL texture (expected {} bytes; got {} instead)!",
+          expectedSize, size);
+    }
+
+    glBindTexture(GL_TEXTURE_2D, m_handle);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_size.x, m_size.y, m_pixelFormat, GL_UNSIGNED_BYTE,
+      data);
   }
 
   bool TextureImpl::initializeTexture ()
