@@ -24,6 +24,13 @@ namespace dgstudio
       0, 1, 3, 1, 2, 3
     };
 
+    dg::FrameBufferSpecification framebufferSpec;
+    framebufferSpec.attachmentSpec = {
+      dg::FrameBufferTextureFormat::COLOR,
+      dg::FrameBufferTextureFormat::DEPTH
+    };
+
+    m_frameBuffer = dg::FrameBuffer::make(framebufferSpec);
     m_vao = dg::VertexArray::make();
     m_vbo = dg::VertexBuffer::makeFrom<Vertex>(vertices);
     m_ibo = dg::IndexBuffer::make(indices);
@@ -41,7 +48,9 @@ namespace dgstudio
 
     m_shader->setInteger("uni_Texture", 0);
 
-    dg::Application::getRenderer().useQuadShader2D(m_shader);
+    auto& renderer = dg::Application::getRenderer();
+    renderer.useQuadShader2D(m_shader);
+    renderer.useFrameBuffer2D(m_frameBuffer);
   }
 
   void EditorLayer::onDetach ()
@@ -51,6 +60,7 @@ namespace dgstudio
     m_vao.reset();
     m_vbo.reset();
     m_ibo.reset();
+    m_frameBuffer.reset();
   }
 
   void EditorLayer::update ()
@@ -63,7 +73,56 @@ namespace dgstudio
 
   void EditorLayer::guiUpdate ()
   {
-    ImGui::ShowDemoWindow();
+    ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
+    updateMenuBar();
+    updateDemoWindow();
+    updateSceneWindow();
+  }
+
+  /** Update Menu Bar *****************************************************************************/
+
+  void EditorLayer::updateMenuBar ()
+  {
+    if (ImGui::BeginMainMenuBar()) {
+      updateViewMenu();
+
+      ImGui::EndMainMenuBar();
+    }
+  }
+
+  void EditorLayer::updateViewMenu ()
+  {
+    if (ImGui::BeginMenu("View")) {
+      ImGui::MenuItem("Scene Window", nullptr, &m_showSceneWindow);
+      ImGui::MenuItem("ImGui Demo Window", nullptr, &m_showDemoWindow);
+      ImGui::EndMenu();
+    }
+  }
+
+  /** Update Windows ******************************************************************************/
+
+  void EditorLayer::updateDemoWindow ()
+  {
+    if (m_showDemoWindow == false) { return; }
+
+    ImGui::ShowDemoWindow(&m_showDemoWindow);
+  }
+
+  void EditorLayer::updateSceneWindow ()
+  {
+    if (m_showSceneWindow == false) { return; }
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
+
+    ImGui::Begin("Scene", &m_showSceneWindow);
+    ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+    if (m_frameBuffer->setSize(contentRegionAvailable.x, contentRegionAvailable.y) == false) {
+      ImGui::Image(m_frameBuffer->getColorPointer(), contentRegionAvailable, { 0, 1 }, { 1, 0 });
+    }
+    ImGui::End();
+
+    ImGui::PopStyleVar();
   }
 
 }

@@ -290,7 +290,7 @@ namespace dg::OpenGL
       generateAttachmentTextures(m_colorHandles.data(), m_colorHandles.size());
 
       for (Index i = 0; i < m_colorAttachmentSpecs.size(); ++i) {
-        bindAttachmentTexture(multisampled, m_colorHandles.at(i));
+        bindAttachmentTexture(m_colorHandles.at(i), multisampled);
         attachColorTexture(m_colorHandles.at(i), i, m_spec, m_colorAttachmentSpecs.at(i));
       }
     }

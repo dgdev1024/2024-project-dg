@@ -17,7 +17,7 @@ namespace dgstudio
     ~Application ();
     
   private:
-    dg::Unique<EditorLayer> m_editorLayer = nullptr;
+    EditorLayer m_editorLayer;
 
   };
 

@@ -77,14 +77,15 @@ namespace dg
   {
     if (m_renderData2D.sceneStarted == true) {
       flushScene2D(true);
-    }
 
-    if (m_renderData2D.framebuffer != nullptr) {
-      m_renderData2D.framebuffer->unbind();
+      if (m_renderData2D.framebuffer != nullptr) {
+        m_renderData2D.framebuffer->unbind();
+      }
     }
 
     m_renderData2D.framebuffer = framebuffer;
-    if (m_renderData2D.framebuffer != nullptr) {
+
+    if (m_renderData2D.sceneStarted == true && m_renderData2D.framebuffer != nullptr) {
       m_renderData2D.framebuffer->bind();
     }
   }
@@ -133,6 +134,10 @@ namespace dg
         "Attempt to begin 2D scene with insufficient shaders provided!");
     }
 
+    if (m_renderData2D.framebuffer != nullptr) {
+      m_renderData2D.framebuffer->bind();
+    }
+
     m_renderData2D.cameraProduct = cameraProduct;
     m_renderData2D.quadShader->setMatrix4f("uni_CameraProduct", m_renderData2D.cameraProduct);
     m_renderData2D.quadVertexCount = 0;
@@ -154,6 +159,11 @@ namespace dg
     }
 
     flushScene2D(false);
+
+    if (m_renderData2D.framebuffer != nullptr) {
+      m_renderData2D.framebuffer->unbind();
+    }
+
     m_renderData2D.sceneStarted = false;
   }
 

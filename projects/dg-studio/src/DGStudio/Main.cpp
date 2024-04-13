@@ -8,6 +8,7 @@ int main ()
 
   try {
     dg::ApplicationSpecification spec;
+    spec.windowSpec.title = "DG Studio";
     spec.guiSpec.enabled = true;
     spec.guiSpec.docking = true;
     dgstudio::Application app { spec };
