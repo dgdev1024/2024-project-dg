@@ -42,7 +42,6 @@ void main ()
   vec4 textureColor = vec4(1.0);
 
   switch (var_TexIndex) {
-    case 0:  textureColor = texture(uni_TexSlots[0],  var_TexCoords); break;
     case 1:  textureColor = texture(uni_TexSlots[1],  var_TexCoords); break;
     case 2:  textureColor = texture(uni_TexSlots[2],  var_TexCoords); break;
     case 3:  textureColor = texture(uni_TexSlots[3],  var_TexCoords); break;
@@ -58,7 +57,7 @@ void main ()
     case 13: textureColor = texture(uni_TexSlots[13], var_TexCoords); break;
     case 14: textureColor = texture(uni_TexSlots[14], var_TexCoords); break;
     case 15: textureColor = texture(uni_TexSlots[15], var_TexCoords); break;
-    default: out_Color = vec4(1.0, 1.0, 1.0, 1.0); return;
+    default: break;
   }
 
   out_Color = textureColor * var_Color;

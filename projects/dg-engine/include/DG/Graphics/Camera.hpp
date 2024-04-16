@@ -5,6 +5,7 @@
 #include <DG_Pch.hpp>
 #include <DG/Math/Projections.hpp>
 #include <DG/Math/Transforms.hpp>
+#include <DG/Math/MathUtils.hpp>
 
 namespace dg
 {
@@ -12,6 +13,11 @@ namespace dg
   enum class ProjectionType
   {
     ORTHOGRAPHIC, PERSPECTIVE
+  };
+
+  struct CameraFrustum
+  {
+    F32 size, near, far;
   };
 
   class Camera

@@ -6,6 +6,13 @@
 namespace dg
 {
 
+  Entity::Entity () :
+    m_handle { 0 },
+    m_scene { nullptr }
+  {
+
+  }
+
   Entity::Entity (Scene* scene, Handle handle) :
     m_handle { handle },
     m_scene { scene }

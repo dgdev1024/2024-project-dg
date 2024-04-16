@@ -13,6 +13,7 @@ namespace dgstudio
 
     void onAttach () override;
     void onDetach () override;
+    void fixedUpdate (const dg::F32 timestep) override;
     void update () override;
     void guiUpdate () override;
 
@@ -25,11 +26,8 @@ namespace dgstudio
     void updateSceneWindow ();
 
   private:
-    dg::Shared<dg::VertexArray>   m_vao           = nullptr;
-    dg::Shared<dg::VertexBuffer>  m_vbo           = nullptr;
-    dg::Shared<dg::IndexBuffer>   m_ibo           = nullptr;
-    dg::Shared<dg::Shader>        m_shader        = nullptr;
     dg::Shared<dg::Texture>       m_texture       = nullptr;
+    dg::Shared<dg::Shader>        m_shader        = nullptr;
     dg::Shared<dg::FrameBuffer>   m_frameBuffer   = nullptr;
     dg::Shared<dg::Scene>         m_scene         = nullptr;
 
