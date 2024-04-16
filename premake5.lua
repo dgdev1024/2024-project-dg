@@ -87,6 +87,7 @@ project "dg-engine"
     "./vendor/imgui",
     "./vendor/imguizmo",
     "./vendor/stb/include",
+    "./vendor/entt/include",
     "./projects/dg-bpp/include",
     "./projects/dg-engine/include"
   }
@@ -96,6 +97,7 @@ project "dg-engine"
     "./projects/dg-engine/src/DG/Core/*.cpp",
     "./projects/dg-engine/src/DG/Events/*.cpp",
     "./projects/dg-engine/src/DG/Graphics/*.cpp",
+    "./projects/dg-engine/src/DG/Scene/*.cpp",
     "./vendor/imgui/*.cpp",
     "./vendor/imguizmo/*.cpp"
   }
@@ -141,7 +143,7 @@ project "dg-studio"
   includedirs {
     "./vendor/imgui",
     "./vendor/imguizmo",
-    "./projects/dg-bpp/include",
+    "./vendor/entt/include",
     "./projects/dg-engine/include",
     "./projects/dg-studio/include"
   }

@@ -51,10 +51,14 @@ namespace dgstudio
     auto& renderer = dg::Application::getRenderer();
     renderer.useQuadShader2D(m_shader);
     renderer.useFrameBuffer2D(m_frameBuffer);
+
+    m_scene = std::make_shared<dg::Scene>();
+    dg::Entity e = m_scene->createEntity();
   }
 
   void EditorLayer::onDetach ()
   {
+    m_scene.reset();
     m_texture.reset();
     m_shader.reset();
     m_vao.reset();

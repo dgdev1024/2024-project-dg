@@ -11,6 +11,7 @@
 #include <array>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <memory>
 #include <chrono>
 #include <random>
@@ -69,11 +70,13 @@ namespace dg
   template <typename T, typename U>     using Pair = std::pair<T, U>;
   template <typename T>                 using Definition = Pair<String, T>;
   template <typename T, typename U>     using Map = std::unordered_map<T, U>;
+  template <typename T>                 using Set = std::unordered_set<T>;
   template <typename T>                 using Dictionary = Map<String, T>;
   template <typename T>                 using InitList = std::initializer_list<T>;
   template <typename T, typename... Us> using Function = std::function<T(Us&&...)>;
   template <typename T, typename... Us> using LValueFunction = std::function<T(Us...)>;
   template <typename T>                 using Unique = std::unique_ptr<T>;
+  template <typename T>                 using UniqueWithFree = std::unique_ptr<T, void (*) (void*)>;
   template <typename T>                 using Shared = std::shared_ptr<T>;
 
 }

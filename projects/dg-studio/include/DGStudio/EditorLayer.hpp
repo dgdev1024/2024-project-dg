@@ -31,6 +31,7 @@ namespace dgstudio
     dg::Shared<dg::Shader>        m_shader        = nullptr;
     dg::Shared<dg::Texture>       m_texture       = nullptr;
     dg::Shared<dg::FrameBuffer>   m_frameBuffer   = nullptr;
+    dg::Shared<dg::Scene>         m_scene         = nullptr;
 
   private:
     bool  m_showDemoWindow        = true;

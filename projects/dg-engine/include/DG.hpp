@@ -41,3 +41,8 @@
 #include <DG/Graphics/Texture.hpp>
 #include <DG/Graphics/VertexArray.hpp>
 #include <DG/Graphics/VertexLayout.hpp>
+
+// ECS
+#include <DG/Scene/Scene.hpp>
+#include <DG/Scene/Entity.hpp>
+#include <DG/Scene/Components.hpp>

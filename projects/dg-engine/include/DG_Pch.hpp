@@ -13,6 +13,8 @@
   #include <GLFW/glfw3.h>
 #endif
 
+#include <entt/entt.hpp>
+
 #include <DG/Common.hpp>
 #include <DG/Core/Logging.hpp>
 
